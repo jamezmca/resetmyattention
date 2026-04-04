@@ -156,7 +156,8 @@
         localStorage.setItem('rma_depth', scrollDepth);
       }
 
-      velocity += normalised * 0.055;
+      const visualMultiplier = isTouch ? 0.09 : 0.055;
+      velocity += normalised * visualMultiplier;
 
       // clamp velocity so it doesn't explode
       velocity = Math.max(-8, Math.min(8, velocity));
