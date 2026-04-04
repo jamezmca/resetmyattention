@@ -154,10 +154,10 @@
       }
 
       // velocity: positive = pixels moving up (perceived downward scroll)
-      velocity += delta * 0.04;
+      velocity += delta * 0.055;
 
       // clamp velocity so it doesn't explode
-      velocity = Math.max(-6, Math.min(6, velocity));
+      velocity = Math.max(-8, Math.min(8, velocity));
 
       if (!isScrolling) {
         isScrolling = true;
