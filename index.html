@@ -154,7 +154,7 @@
       }
 
       // touch gives raw finger px (small); wheel gives large deltaY — scale separately
-      const multiplier = isTouch ? 0.55 : 0.055;
+      const multiplier = isTouch ? 0.9 : 0.055;
       velocity += delta * multiplier;
 
       // clamp velocity so it doesn't explode
