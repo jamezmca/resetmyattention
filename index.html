@@ -158,9 +158,16 @@
 
       const visualMultiplier = isTouch ? 0.09 : 0.055;
       const clamp = isTouch ? 18 : 8;
-      velocity += normalised * visualMultiplier;
 
-      // clamp velocity so it doesn't explode
+      // touch: lerp toward current speed so it doesn't compound during long drags
+      // wheel: accumulate as before for natural momentum feel
+      if (isTouch) {
+        const target = normalised * visualMultiplier;
+        velocity = velocity * 0.3 + target * 0.7;
+      } else {
+        velocity += normalised * visualMultiplier;
+      }
+
       velocity = Math.max(-clamp, Math.min(clamp, velocity));
 
       if (!isScrolling) {
