@@ -147,19 +147,19 @@
 
     // ── Scroll input ─────────────────────────────────────────────────────────
     function onScrollDelta(delta, isTouch) {
-      // only track downward scrolling for depth (delta > 0)
-      if (delta > 0) {
-        scrollDepth += Math.round(delta);
+      // normalise touch (raw finger px) up to roughly the same scale as wheel deltaY
+      const normalised = isTouch ? delta * 8 : delta;
+
+      // only track downward scrolling for depth
+      if (normalised > 0) {
+        scrollDepth += Math.round(normalised);
         localStorage.setItem('rma_depth', scrollDepth);
       }
 
-      // touch gives raw finger px (small); wheel gives large deltaY — scale separately
-      const multiplier = isTouch ? 0.9 : 0.055;
-      const clamp = isTouch ? 40 : 8;
-      velocity += delta * multiplier;
+      velocity += normalised * 0.055;
 
       // clamp velocity so it doesn't explode
-      velocity = Math.max(-clamp, Math.min(clamp, velocity));
+      velocity = Math.max(-8, Math.min(8, velocity));
 
       if (!isScrolling) {
         isScrolling = true;
