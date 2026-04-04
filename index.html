@@ -146,15 +146,16 @@
     }
 
     // ── Scroll input ─────────────────────────────────────────────────────────
-    function onScrollDelta(delta) {
+    function onScrollDelta(delta, isTouch) {
       // only track downward scrolling for depth (delta > 0)
       if (delta > 0) {
         scrollDepth += Math.round(delta);
         localStorage.setItem('rma_depth', scrollDepth);
       }
 
-      // velocity: positive = pixels moving up (perceived downward scroll)
-      velocity += delta * 0.055;
+      // touch gives raw finger px (small); wheel gives large deltaY — scale separately
+      const multiplier = isTouch ? 0.55 : 0.055;
+      velocity += delta * multiplier;
 
       // clamp velocity so it doesn't explode
       velocity = Math.max(-8, Math.min(8, velocity));
@@ -186,7 +187,7 @@
       const y = e.touches[0].clientY;
       const delta = lastTouchY - y;   // positive = finger moving up = scroll down
       lastTouchY = y;
-      onScrollDelta(delta);
+      onScrollDelta(delta, true);
     }, { passive: false });
 
     window.addEventListener('touchend', () => { lastTouchY = null; });
