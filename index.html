@@ -157,10 +157,11 @@
       }
 
       const visualMultiplier = isTouch ? 0.09 : 0.055;
+      const clamp = isTouch ? 18 : 8;
       velocity += normalised * visualMultiplier;
 
       // clamp velocity so it doesn't explode
-      velocity = Math.max(-8, Math.min(8, velocity));
+      velocity = Math.max(-clamp, Math.min(clamp, velocity));
 
       if (!isScrolling) {
         isScrolling = true;
