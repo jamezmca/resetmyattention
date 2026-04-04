@@ -155,10 +155,11 @@
 
       // touch gives raw finger px (small); wheel gives large deltaY — scale separately
       const multiplier = isTouch ? 0.9 : 0.055;
+      const clamp = isTouch ? 40 : 8;
       velocity += delta * multiplier;
 
       // clamp velocity so it doesn't explode
-      velocity = Math.max(-8, Math.min(8, velocity));
+      velocity = Math.max(-clamp, Math.min(clamp, velocity));
 
       if (!isScrolling) {
         isScrolling = true;
