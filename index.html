@@ -99,7 +99,7 @@
         x: 0.1 * W + Math.random() * 0.8 * W,
         y: yOverride !== undefined ? yOverride : Math.random() * H,
         size: 2 + Math.random() * 2,
-        alpha: 0.18 + Math.random() * 0.22,
+        alpha: 0.35 + Math.random() * 0.25,
       };
     }
 
@@ -119,7 +119,7 @@
     // ── Display ──────────────────────────────────────────────────────────────
     function fmtDepth(px) {
       if (px >= 1_000_000) return (px / 1_000_000).toFixed(2) + ' Mpx';
-      if (px >= 1_000)     return (px / 1_000).toFixed(1) + ' kpx';
+      if (px >= 1_000)     return Math.floor(px / 1_000) + ' kpx';
       return px + ' px';
     }
 
