@@ -150,11 +150,9 @@
       // normalise touch (raw finger px) up to roughly the same scale as wheel deltaY
       const normalised = isTouch ? delta * 8 : delta;
 
-      // only track downward scrolling for depth
-      if (normalised > 0) {
-        scrollDepth += Math.round(normalised);
-        localStorage.setItem('rma_depth', scrollDepth);
-      }
+      // track total distance scrolled in either direction
+      scrollDepth += Math.round(Math.abs(normalised));
+      localStorage.setItem('rma_depth', scrollDepth);
 
       const visualMultiplier = isTouch ? 0.09 : 0.055;
       const clamp = isTouch ? 18 : 8;
