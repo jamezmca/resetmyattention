@@ -150,8 +150,8 @@
       // normalise touch (raw finger px) up to roughly the same scale as wheel deltaY
       const normalised = isTouch ? delta * 8 : delta;
 
-      // track total distance scrolled in either direction
-      scrollDepth += Math.round(Math.abs(normalised));
+      // track net depth — increments scrolling down, decrements scrolling up
+      scrollDepth = Math.max(0, scrollDepth + Math.round(normalised));
       localStorage.setItem('rma_depth', scrollDepth);
 
       const visualMultiplier = isTouch ? 0.09 : 0.055;
